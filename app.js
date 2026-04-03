@@ -258,7 +258,7 @@ function switchTab(tab) {
   document.getElementById('tabMonthly').classList.toggle('active', !isTransactions);
   if (!isTransactions) renderMonthlySummary();
 }
-
+window.switchTab = switchTab;
 // ────────────────────────────────────────────────
 // Monthly Summary
 // ────────────────────────────────────────────────

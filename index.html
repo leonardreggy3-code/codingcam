@@ -10,7 +10,15 @@
 <body>
 
   <div class="app-wrapper">
-    <h1 class="app-title">Expense & Budget Visualizer</h1>
+
+    <!-- Header -->
+    <div class="app-header">
+      <h1 class="app-title">Expense & Budget Visualizer</h1>
+      <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+        <span class="toggle-icon toggle-sun">☀️</span>
+        <span class="toggle-icon toggle-moon">🌙</span>
+      </button>
+    </div>
 
     <!-- Balance Card -->
     <div class="card balance-card">
@@ -44,24 +52,67 @@
         </select>
       </div>
 
+      <div class="form-group">
+        <label for="spendLimit">Spending Limit per Transaction</label>
+        <div class="limit-row">
+          <input type="number" id="spendLimit" placeholder="e.g. 50.00" step="0.01" min="0" />
+          <span class="limit-status" id="limitStatus" style="display:none"></span>
+        </div>
+      </div>
+
       <button class="btn-add" id="addBtn">Add Transaction</button>
     </div>
 
-    <!-- Transactions + Chart -->
-    <div class="bottom-grid">
-      <div class="card transactions-card">
-        <h2 class="section-title">Transactions</h2>
-        <div id="transactionList"></div>
-      </div>
+    <!-- Tab Nav -->
+    <div class="tab-nav">
+      <button class="tab-btn active" id="tabTransactions" onclick="switchTab('transactions')">Transactions</button>
+      <button class="tab-btn" id="tabMonthly" onclick="switchTab('monthly')">Monthly Summary</button>
+    </div>
 
-      <div class="card chart-card">
-        <h2 class="section-title">Spending by Category</h2>
-        <div class="chart-wrapper">
-          <canvas id="spendingChart"></canvas>
+    <!-- Transactions View -->
+    <div id="viewTransactions">
+      <div class="bottom-grid">
+        <div class="card transactions-card">
+          <h2 class="section-title">Transactions</h2>
+          <div id="transactionList"></div>
         </div>
-        <div id="chartLegend" class="chart-legend"></div>
+
+        <div class="card chart-card">
+          <h2 class="section-title">Spending by Category</h2>
+          <div class="chart-wrapper">
+            <canvas id="spendingChart"></canvas>
+          </div>
+          <div id="chartLegend" class="chart-legend"></div>
+        </div>
       </div>
     </div>
+
+    <!-- Monthly Summary View -->
+    <div id="viewMonthly" style="display:none;">
+      <div class="card">
+        <div class="month-selector">
+          <button class="month-nav-btn" id="prevMonth">&#8249;</button>
+          <span class="month-label" id="monthLabel">—</span>
+          <button class="month-nav-btn" id="nextMonth">&#8250;</button>
+        </div>
+        <div class="summary-stats">
+          <div class="stat-box">
+            <div class="stat-label">Transactions</div>
+            <div class="stat-value accent" id="statCount">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Total Spent</div>
+            <div class="stat-value" id="statTotal">$0.00</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Over Limit</div>
+            <div class="stat-value danger" id="statOver">0</div>
+          </div>
+        </div>
+        <div class="month-breakdown" id="monthBreakdown"></div>
+      </div>
+    </div>
+
   </div>
 
   <script src="app.js"></script>
